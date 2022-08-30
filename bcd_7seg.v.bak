@@ -1,0 +1,23 @@
+module bcd_7seg (
+	input [3:0] a,
+	output reg[6:0] b
+);
+
+always@(posedge)
+	begin
+		case(a)
+			4'b0000: b = 0;
+			4'b0001: b = 1;
+			4'b0010: b = 2;
+			4'b0011: b = 3;
+			4'b0100: b = 4;
+			4'b0101: b = 5;
+			4'b0110: b = 6;
+			4'b0111: b = 7;
+			4'b1000: b = 8;
+			4'b1001: b = 9;
+		endcase
+	end
+	
+endmodule
+			

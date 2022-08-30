@@ -1,0 +1,91 @@
+module BC(
+	input s,d,b1,b2,b3,b4,sp,spe,//em,ab,
+	output reg[6:0] b
+);
+reg[1:0] de = 4'b0001;
+reg[1:0] sa = 4'b0001;
+wire aux = 0;
+reg[3:0] state;
+always@(*)
+	begin
+		case(state)
+			4'b0000: begin
+				b <= 4'b0000;
+				if(s==1) state <= 4'b0001;
+				if(d==1) state <= 4'b0010;
+						end
+			
+			4'b0001: begin
+				b <= 4'b0001;
+				if(sp==0 && spe==0) state <= 4'b0011;				
+						end
+					
+			4'b0010: begin
+				b <= 4'b0010;
+				if(sp==0 && spe==0) state <= 4'b0100;				
+						end
+						
+			4'b0011: begin
+				b <= 4'b0011;
+				aux <= 0;
+				state <= 4'b0101;				
+						end
+						
+			4'b0100: begin
+				b <= 4'b0100;
+				aux <= 1;
+				state <= 4'b0101;				
+						end
+						
+			4'b0101: begin
+				b <= 4'b0101;
+				if(aux==0 && de!=sa) sa <= sa + 1;
+				if(aux==1 && de!=sa) sa <= sa - 1;
+				if(de==sa) state <= 4'b0110;				
+						end
+				
+			4'b0110: begin
+				b <= 4'b0101;
+				state <= 4'b0111;				
+						end
+						
+			4'b0111: begin
+				b <= 4'b0111;
+				state <= 4'b1000;				
+						end
+				
+			4'b1000: begin
+				b <= 4'b1000;
+				if(b1)
+					if(sa != 4'b0001)
+						state <= 4'b0010;
+						de <= 4'b0001;
+					else
+						state <= 4'b0000;
+				if(b2)
+					if(sa < 4'b0010)
+						state <= 4'b0001;
+						de <= 4'b0010;
+					if(sa > 4'b0010)
+						state <= 4'b0010;
+						de <= 4'b0010;
+					else
+						state <= 4'b0000;
+				if(b3)
+					if(sa < 4'b0011)
+						state <= 4'b0001;
+						de <= 4'b0011;
+					if(sa > 4'b0011)
+						state <= 4'b0010;
+						de <= 4'b0011;
+					else
+						state <= 4'b0000;
+				if(b4)
+					if(sa != 4'b0100)
+						state <= 4'b0001;
+						de <= 4'b0100;
+					else
+						state <= 4'b0000;
+						end
+		endcase
+	end

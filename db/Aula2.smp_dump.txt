@@ -1,0 +1,19 @@
+
+State Machine - |Aula2|BC_elevador:joao|de
+Name de.11 de.10 de.01 de.00 
+de.00 0 0 0 0 
+de.01 0 0 1 1 
+de.10 0 1 0 1 
+de.11 1 0 0 1 
+
+State Machine - |Aula2|BC_elevador:joao|state
+Name state.0111 state.0110 state.0101 state.0100 state.0011 state.0010 state.0001 state.0000 state.1000 
+state.0000 0 0 0 0 0 0 0 0 0 
+state.0001 0 0 0 0 0 0 1 1 0 
+state.0010 0 0 0 0 0 1 0 1 0 
+state.0011 0 0 0 0 1 0 0 1 0 
+state.0100 0 0 0 1 0 0 0 1 0 
+state.0101 0 0 1 0 0 0 0 1 0 
+state.0110 0 1 0 0 0 0 0 1 0 
+state.0111 1 0 0 0 0 0 0 1 0 
+state.1000 0 0 0 0 0 0 0 1 1 
