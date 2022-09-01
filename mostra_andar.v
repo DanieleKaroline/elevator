@@ -9,6 +9,5 @@ always@(posedge clock)
 		else if(sen2) a <= 7'b0100100;
 		else if(sen3) a <= 7'b0110000;
 		else if(sen4) a <= 7'b0011001;
-		else a <= 7'b1000000;
 	end
 endmodule

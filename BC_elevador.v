@@ -1,5 +1,6 @@
 module BC_elevador(
-	input s,d,b1,b2,b3,b4,sp,spe,clock,sen1,sen2,sen3,sen4,reset,
+	input s,d,b1,b2,b3,b4,sp,spe,clock,sen1,sen2,sen3,sen4,reset,emerg,
+	output reg[8:0] led,
 	output reg[6:0] b,
 	output reg[6:0] c,
 	output reg[6:0] e,
@@ -17,7 +18,7 @@ always@(posedge clock)
 			state <= 4'b0000;
 			de = 2'b11;
 					end
-			
+
 		case(state)
 			4'b0000: begin
 				
@@ -30,7 +31,6 @@ always@(posedge clock)
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				case(de)
 					2'b00: e <= 7'b1111001;
@@ -53,7 +53,6 @@ always@(posedge clock)
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				case(de)
 					2'b00: e <= 7'b1111001;
@@ -75,7 +74,6 @@ always@(posedge clock)
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				case(de)
 					2'b00: e <= 7'b1111001;
@@ -104,7 +102,6 @@ always@(posedge clock)
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				motor1 <= 0;
 				motor2 <= 1;
@@ -118,7 +115,6 @@ always@(posedge clock)
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				case(de)
 					2'b00: e <= 7'b1111001;
@@ -134,12 +130,11 @@ always@(posedge clock)
 						
 			4'b0101: begin
 				b <= 7'b0010010;
-				
+
 				if(sen1) c <= 7'b1111001;
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				case(de)
 					2'b00: e <= 7'b1111001;
@@ -164,12 +159,11 @@ always@(posedge clock)
 				
 			4'b0110: begin
 				b <= 7'b0000010;
-				
+
 				if(sen1) c <= 7'b1111001;
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				case(de)
 					2'b00: e <= 7'b1111001;
@@ -185,12 +179,11 @@ always@(posedge clock)
 						
 			4'b0111: begin
 				b <= 7'b1111000;
-				
+
 				if(sen1) c <= 7'b1111001;
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				case(de)
 					2'b00: e <= 7'b1111001;
@@ -207,12 +200,11 @@ always@(posedge clock)
 				
 			4'b1000: begin
 				b <= 7'b000000;
-				
+
 				if(sen1) c <= 7'b1111001;
 				else if(sen2) c <= 7'b0100100;
 				else if(sen3) c <= 7'b0110000;
 				else if(sen4) c <= 7'b0011001;
-				else c <= 7'b1000000;
 				
 				case(de)
 					2'b00: e <= 7'b1111001;
@@ -285,5 +277,14 @@ always@(posedge clock)
 							end
 						end	
 		endcase
+		
+		if(emerg)
+			begin
+				led <= 8'b11111111;
+				motor1 <= 0;
+				motor2 <= 0;
+			end
+		else led <= 8'b00000000;
+	
 	end
 endmodule
